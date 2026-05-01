@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { FaGithubAlt } from 'react-icons/fa';
+import './userSearch.scss';
 
 const UserSearch = () => {
     const [userName, setUserName] = React.useState<string>('');
@@ -26,47 +27,47 @@ const UserSearch = () => {
     };
 
     return (
-        <React.Fragment>
-        <form
-            className="user-search__form"
-            onSubmit={handleSubmit}
-        >
-            <input 
-                placeholder='Enter a GitHub user name'
-                onChange={(e) => setUserName(e.target.value)}
-                type="text"
-                value={userName}
-            />
-            <button 
-                className="user-search__button"
-                type="submit"
+        <div className="user-search__container">
+            <form
+                className="user-search__form"
+                onSubmit={handleSubmit}
             >
-                Search
-            </button>
-        </form>
-        {isLoading && <p>Loading...</p>}
-        {error && <p>Error: {error.message}</p>}
-        {data && (
-            <div className="user-search__result">
-                <img 
-                    alt={`${data.login}'s avatar`} 
-                    className="user-search__avatar" 
-                    src={data.avatar_url}
-                    width={100} 
+                <input 
+                    placeholder='Enter a GitHub user name'
+                    onChange={(e) => setUserName(e.target.value)}
+                    type="text"
+                    value={userName}
                 />
-                <h2>{data.name || data.login}</h2>
-                <p>{data.bio}</p>
-                <a 
-                    className="user-search__profile-link"
-                    href={data.html_url} 
-                    rel="noopener noreferrer"
-                    target="_blank"
+                <button 
+                    className="user-search__button"
+                    type="submit"
                 >
-                    <FaGithubAlt /> View Profile
-                </a>
-            </div>
-        )}
-        </React.Fragment>
+                    Search
+                </button>
+            </form>
+            {isLoading && <p>Loading...</p>}
+            {error && <p>Error: {error.message}</p>}
+            {data && (
+                <div className="user-search__result">
+                    <img 
+                        alt={`${data.login}'s avatar`} 
+                        className="user-search__avatar" 
+                        src={data.avatar_url}
+                        width={100} 
+                    />
+                    <h2 className="user-search__name">{data.name || data.login}</h2>
+                    <p className="user-search__bio">{data.bio}</p>
+                    <a 
+                        className="user-search__profile-link"
+                        href={data.html_url} 
+                        rel="noopener noreferrer"
+                        target="_blank"
+                    >
+                        <FaGithubAlt /> View Profile
+                    </a>
+                </div>
+            )}
+        </div>
     )
 };
 

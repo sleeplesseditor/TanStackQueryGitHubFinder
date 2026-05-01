@@ -1,8 +1,9 @@
 import UserSearch from "@components/UserSearch";
+import './App.scss';
 
 function App() {
   return (
-    <div>
+    <div className="github-finder__container">
       <UserSearch />
     </div>
   )
