@@ -1,9 +1,9 @@
+@use '@styles/elementMixins.scss';
+@use '@styles/variables.scss';
+
 .header {
     &__container {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
+        @include elementMixins.flexLayout(row, flex-start, center);
         width: stretch;
         gap: 10px;
         padding: 10px 20px;
@@ -13,12 +13,12 @@
         top: 0;
 
         h3 {
-            color: #fff;
+            color: variables.$basic-white;
             margin: 0px;
         }
     }
 
     &__icon {
-        color: white;
+        color: variables.$basic-white;
     }
 }
