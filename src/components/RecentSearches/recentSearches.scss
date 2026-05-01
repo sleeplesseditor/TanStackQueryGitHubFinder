@@ -1,0 +1,43 @@
+@use '@styles/elementMixins.scss';
+@use '@styles/variables.scss';
+
+.recent-search {
+    &__container {
+        @include elementMixins.flexLayout(column, null, center);
+        padding: 10px;
+        background-color: variables.$basic-white;
+        border-radius: 4px;
+        gap: 5px;
+        margin-top: 10px;
+        width: 500px;
+    }
+
+    &__header {
+        @include elementMixins.flexLayout(row, null, center);
+        gap: 5px;
+        color: variables.$basic-black;
+
+        h3 {
+            margin: 0px;
+        }
+    }
+
+    &__item {
+        button {
+            @include elementMixins.flexLayout(row, center, center);
+
+            width: 100%;
+            gap: 10px;
+        }
+    }
+
+    &__list {
+        @include elementMixins.flexLayout(column, null, null);
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        width: 85%;
+
+        gap: 5px;
+    }
+}

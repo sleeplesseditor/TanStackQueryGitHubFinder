@@ -34,10 +34,7 @@
         @include elementMixins.flexLayout(column, null, center);
         gap: 20px;
         margin: 10px;
-
-        background-color: #f2f2f2;
         padding: 10px;
-        box-shadow: variables.$box-shadow-standard;
 
         .error-message {
             color: red;
@@ -102,5 +99,7 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 5px;
+        height: 50vh;
+        overflow-y: scroll;
     }
 }
