@@ -1,0 +1,21 @@
+.header {
+    &__container {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        width: stretch;
+        gap: 10px;
+        padding: 10px 20px;
+        background-color: #24292e;
+
+        h3 {
+            color: #fff;
+            margin: 0px;
+        }
+    }
+
+    &__icon {
+        color: white;
+    }
+}

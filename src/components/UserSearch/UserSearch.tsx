@@ -10,7 +10,11 @@ const UserSearch = () => {
     const { data, isLoading, error } = useQuery({
         queryKey: ['users', submittedUserName],
         queryFn: async () => {
-            const response = await fetch(`${import.meta.env.VITE_GITHUB_API_URL}/users/${submittedUserName}`);
+            const response = await fetch(`${import.meta.env.VITE_GITHUB_API_URL}/search/users?q=${submittedUserName}&per-page=10   `, {
+                headers: {
+                    'X-GitHub-Api-Version': '2026-03-10'
+                }
+            });
             
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -25,6 +29,8 @@ const UserSearch = () => {
         e.preventDefault();
         setSubmittedUserName(userName.trim());
     };
+
+    console.log('Data:', data);
 
     return (
         <div className="user-search__container">
@@ -45,28 +51,28 @@ const UserSearch = () => {
                     Search
                 </button>
             </form>
-            {isLoading && <p>Loading...</p>}
-            {error && <p>Error: {error.message}</p>}
-            {data && (
+            {isLoading && <p className="loading-message">Loading...</p>}
+            {error && <p className="error-message">Error: {error.message}</p>}
+            {data && data.items.map((user: any) => (
                 <div className="user-search__result">
                     <img 
-                        alt={`${data.login}'s avatar`} 
+                        alt={`${user.login}'s avatar`} 
                         className="user-search__avatar" 
-                        src={data.avatar_url}
+                        src={user.avatar_url}
                         width={100} 
                     />
-                    <h2 className="user-search__name">{data.name || data.login}</h2>
-                    <p className="user-search__bio">{data.bio}</p>
+                    <h2 className="user-search__name">{user.name || user.login}</h2>
+                    <p className="user-search__bio">{user.bio}</p>
                     <a 
                         className="user-search__profile-link"
-                        href={data.html_url} 
+                        href={user.html_url} 
                         rel="noopener noreferrer"
                         target="_blank"
                     >
                         <FaGithubAlt /> View Profile
                     </a>
                 </div>
-            )}
+            ))}
         </div>
     )
 };
