@@ -61,9 +61,12 @@ const UserSearch = () => {
             )}
             {recentUsers.length > 0 && (
                 <RecentSearches 
+                    onSelect={(userName) => {
+                        setUserName(userName);
+                        setSubmittedUserName(userName);
+                    }}
                     recentUsers={recentUsers} 
-                    setSubmittedUserName={setSubmittedUserName} 
-                    setUserName={setUserName}/>
+                />
             )}
         </React.Fragment>
     )
