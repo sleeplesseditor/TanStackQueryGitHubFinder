@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { FaGithubAlt } from 'react-icons/fa';
+import { fetchGitHubUsers } from '@api/github'; 
+import UserCard from '@components/UserCard/UserCard';
 import './userSearch.scss';
 
 const UserSearch = () => {
@@ -9,19 +10,7 @@ const UserSearch = () => {
 
     const { data, isLoading, error } = useQuery({
         queryKey: ['users', submittedUserName],
-        queryFn: async () => {
-            const response = await fetch(`${import.meta.env.VITE_GITHUB_API_URL}/search/users?q=${submittedUserName}&per-page=10   `, {
-                headers: {
-                    'X-GitHub-Api-Version': '2026-03-10'
-                }
-            });
-            
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            return data;
-        },
+        queryFn: () => fetchGitHubUsers(submittedUserName),
         enabled: !!submittedUserName
     });
 
@@ -58,24 +47,7 @@ const UserSearch = () => {
             {data?.items.length > 0 && (
                 <div className="user-search__results-container">
                     {data.items.map((user: any) => (
-                        <div className="user-search__result">
-                            <img 
-                                alt={`${user.login}'s avatar`} 
-                                className="user-search__avatar" 
-                                src={user.avatar_url}
-                                width={100} 
-                            />
-                            <h2 className="user-search__name">{user.name || user.login}</h2>
-                            <p className="user-search__bio">{user.bio}</p>
-                            <a 
-                                className="user-search__profile-link"
-                                href={user.html_url} 
-                                rel="noopener noreferrer"
-                                target="_blank"
-                            >
-                                <FaGithubAlt /> View Profile
-                            </a>
-                        </div>
+                        <UserCard {...user} />
                     ))}
                 </div>
             )}  
