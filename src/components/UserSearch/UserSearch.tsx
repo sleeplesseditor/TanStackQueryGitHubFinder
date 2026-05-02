@@ -59,22 +59,24 @@ const UserSearch = () => {
                 {isLoading && <p className="loading-message">Loading...</p>}
                 {error && <p className="error-message">Error: {error.message}</p>}  
             </div>
-            {data?.items.length > 0 && (
-                <div className="user-search__results-container">
-                    {data.items.map((user: any) => (
-                        <UserCard {...user} />
-                    ))}
-                </div>
-            )}
-            {recentUsers.length > 0 && (
-                <RecentSearches 
-                    onSelect={(userName) => {
-                        setUserName(userName);
-                        setSubmittedUserName(userName);
-                    }}
-                    recentUsers={recentUsers} 
-                />
-            )}
+            <div className="user-search__content">
+                {data?.items.length > 0 && (
+                    <div className="user-search__results-container">
+                        {data.items.map((user: any) => (
+                            <UserCard {...user} />
+                        ))}
+                    </div>
+                )}
+                {recentUsers.length > 0 && (
+                    <RecentSearches 
+                        onSelect={(userName) => {
+                            setUserName(userName);
+                            setSubmittedUserName(userName);
+                        }}
+                        recentUsers={recentUsers} 
+                    />
+                )}
+            </div>
         </React.Fragment>
     )
 };

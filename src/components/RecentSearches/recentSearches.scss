@@ -8,8 +8,7 @@
         background-color: variables.$basic-white;
         border-radius: 4px;
         gap: 5px;
-        margin-top: 10px;
-        width: 85%;
+        grid-area: recent;
     }
 
     &__header {
@@ -33,7 +32,6 @@
 
     &__list {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
         list-style: none;
         padding: 0;
         margin: 0;

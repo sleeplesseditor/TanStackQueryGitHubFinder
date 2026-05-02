@@ -51,6 +51,14 @@
         }
     }
 
+    &__content {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-areas: "results results results recent";
+        gap: 5px;
+        margin: 0px 10px;
+    }
+
     &__form {
         @include elementMixins.flexLayout(column, null, center);
         width: 500px;
@@ -108,9 +116,10 @@
 
     &__results-container {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         gap: 5px;
-        height: 50vh;
+        height: 70vh;
         overflow-y: scroll;
+        grid-area: results;
     }
 }
