@@ -18,16 +18,18 @@ const UserCard = (user: UserProps) => {
                 src={user.avatar_url}
                 width={100} 
             />
-            <h2 className="user-search__name">{user.name || user.login}</h2>
-            <p className="user-search__bio">{user.bio}</p>
-            <a 
-                className="user-search__profile-link"
-                href={user.html_url} 
-                rel="noopener noreferrer"
-                target="_blank"
-            >
-                <FaGithubAlt /> View Profile
-            </a>
+            <div className="users-search__result--info">
+                <h2 className="user-search__name">{user.name || user.login}</h2>
+                <p className="user-search__bio">{user.bio}</p>
+                <a 
+                    className="user-search__profile-link"
+                    href={user.html_url} 
+                    rel="noopener noreferrer"
+                    target="_blank"
+                >
+                    <FaGithubAlt /> View Profile
+                </a>
+            </div>
         </div>
     )
 };

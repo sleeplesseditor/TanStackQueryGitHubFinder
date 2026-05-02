@@ -9,7 +9,7 @@
         border-radius: 4px;
         gap: 5px;
         margin-top: 10px;
-        width: 500px;
+        width: 85%;
     }
 
     &__header {
@@ -32,7 +32,8 @@
     }
 
     &__list {
-        @include elementMixins.flexLayout(column, null, null);
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
         list-style: none;
         padding: 0;
         margin: 0;

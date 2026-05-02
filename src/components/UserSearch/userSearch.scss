@@ -3,8 +3,8 @@
 
 .user-search {
     &__avatar {
-        width: 100px;
-        height: 100px;
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
         border: 1px solid #000000;
     }
@@ -66,6 +66,8 @@
     &__name {
         font-weight: variables.$font-weight-heavy;
         color: variables.$basic-black;
+        font-size: 18px;
+        text-align: left;
     }
 
     &__profile-link {
@@ -75,7 +77,8 @@
         padding: 5px 10px;
         color: variables.$basic-white;
         text-decoration: none;
-        width: 150px;
+        width: 100px;
+        font-size: 14px;
         transition: all ease-in-out 0.2s;
 
         &:hover {
@@ -84,20 +87,28 @@
     }
 
     &__result  {
-        @include elementMixins.flexLayout(column, null, center);
+        @include elementMixins.flexLayout(row, null, center);
         gap: 10px;
-        width: 400px;
+        width: 225px;
         padding: 10px;
         border: 1px solid variables.$basic-black;
         background-color: variables.$basic-white;
         color: variables.$basic-black;
         border-radius: 5px;
         box-shadow: variables.$box-shadow-standard;
+
+        &__info {
+            @include elementMixins.flexLayout(column, null, null);
+
+            h2 {
+                font-size: 14px;
+            }
+        }
     }
 
     &__results-container {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
         gap: 5px;
         height: 50vh;
         overflow-y: scroll;
