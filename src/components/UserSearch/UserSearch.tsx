@@ -8,7 +8,10 @@ import './userSearch.scss';
 const UserSearch = () => {
     const [userName, setUserName] = React.useState<string>('');
     const [submittedUserName, setSubmittedUserName] = React.useState<string>('');
-    const [recentUsers, setRecentUsers] = React.useState<string[]>([]);
+    const [recentUsers, setRecentUsers] = React.useState<string[]>(() => {
+        const storedItems = localStorage.getItem('recentUsers');
+        return storedItems ? JSON.parse(storedItems) : [];
+    });
 
     const { data, isLoading, error } = useQuery({
         queryKey: ['users', submittedUserName],
@@ -28,6 +31,10 @@ const UserSearch = () => {
             return updated.slice(0,5);
         });
     };
+
+    React.useEffect(() => {
+        localStorage.setItem('recentUsers', JSON.stringify(recentUsers));
+    }, [recentUsers]);
 
     return (
         <React.Fragment>
