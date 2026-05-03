@@ -1,17 +1,10 @@
 import { FaGithubAlt } from 'react-icons/fa';
 import '@components/UserSearch/userSearch.scss';
+import type { GitHubUserProps } from '@components/types/componentTypes';
 
-interface UserProps {
-    avatar_url: string
-    bio: string
-    html_url: string
-    login: string
-    name?: string
-}
-
-const UserCard = (user: UserProps) => {
+const UserCard = (user: GitHubUserProps) => {
     return (
-        <div className="user-search__result">
+        <div className="user-search__result" key={user.id}>
             <img 
                 alt={`${user.login}'s avatar`} 
                 className="user-search__avatar" 

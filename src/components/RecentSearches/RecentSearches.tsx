@@ -1,7 +1,7 @@
 import { FaClock, FaUser } from 'react-icons/fa';
 import { useQueryClient } from '@tanstack/react-query';
 import './recentSearches.scss';
-import { fetchGitHubUsers } from '@api/github';
+import { searchGitHubUsers } from '@api/github';
 
 interface RecentSearchProps {
     onSelect: (userName: string) => void;
@@ -28,7 +28,7 @@ const RecentSearches = ({ onSelect, recentUsers }: RecentSearchProps) => {
                             onMouseEnter={() => {
                                 queryClient.prefetchQuery({
                                     queryKey: ['users', user],
-                                    queryFn: () => fetchGitHubUsers(user)
+                                    queryFn: () => searchGitHubUsers(user)
                                 })
                             }}
                         >

@@ -5,7 +5,7 @@
     &__container {
         @include elementMixins.flexLayout(column, null, center);
         padding: 10px;
-        background-color: variables.$basic-white;
+        border: 1px solid variables.$gray;
         border-radius: 4px;
         gap: 5px;
         grid-area: recent;
@@ -14,7 +14,7 @@
     &__header {
         @include elementMixins.flexLayout(row, null, center);
         gap: 5px;
-        color: variables.$basic-black;
+        color: variables.$basic-white;
 
         h3 {
             margin: 0px;
@@ -24,9 +24,10 @@
     &__item {
         button {
             @include elementMixins.flexLayout(row, center, center);
-
+            cursor: pointer;
             width: 100%;
             gap: 10px;
+            height: 30px;
         }
     }
 

@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { fetchGitHubUsers } from '@api/github'; 
+import { searchGitHubUsers } from '@api/github'; 
 import UserCard from '@components/UserCard/UserCard';
 import RecentSearches from '@components/RecentSearches/RecentSearches';
+import SuggestionsDropdown from '@components/SuggestionsDropdown/SuggestionsDropdown';
+import { useDebounce } from 'use-debounce';
 import './userSearch.scss';
 
 const UserSearch = () => {
@@ -13,10 +15,19 @@ const UserSearch = () => {
         return storedItems ? JSON.parse(storedItems) : [];
     });
 
-    const { data, isLoading, error } = useQuery({
+    const [debouncedUserName] = useDebounce(userName, 300);
+    const [isSuggestionVisible, setIsSuggestionVisible] = React.useState<boolean>(false);
+
+    const { data, isLoading, error, refetch } = useQuery({
         queryKey: ['users', submittedUserName],
-        queryFn: () => fetchGitHubUsers(submittedUserName),
+        queryFn: () => searchGitHubUsers(submittedUserName),
         enabled: !!submittedUserName
+    });
+
+    const { data: suggestions } = useQuery({
+        queryKey: ['github-user-suggestions', debouncedUserName],
+        queryFn: () => searchGitHubUsers(debouncedUserName),
+        enabled: debouncedUserName.length > 1
     });
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -36,6 +47,18 @@ const UserSearch = () => {
         localStorage.setItem('recentUsers', JSON.stringify(recentUsers));
     }, [recentUsers]);
 
+    const messageDisplay = () => {
+        if (isLoading) {
+            return <p className="loading-message">Loading...</p>
+        } else if (error) {
+            return <p className="error-message">Error: {error.message}</p>
+        } else {
+            return <h5 className="user-search__results-message">{submittedUserName.length > 0 ? "No users found..." : ""}</h5>
+        }
+    }
+
+    console.log('IS', isSuggestionVisible, suggestions)
+
     return (
         <React.Fragment>
             <div className="user-search__container">
@@ -43,12 +66,39 @@ const UserSearch = () => {
                     className="user-search__form"
                     onSubmit={handleSubmit}
                 >
-                    <input 
-                        placeholder='Enter a GitHub user name'
-                        onChange={(e) => setUserName(e.target.value)}
-                        type="text"
-                        value={userName}
-                    />
+                    <div className="dropdown-wrapper">
+                        <input 
+                            className="user-search__input"
+                            onChange={(e) => {
+                                const val = e.target.value;
+                                setUserName(val);
+                                setIsSuggestionVisible(val.trim().length > 1);
+                            }}
+                            placeholder='Enter a GitHub user name'
+                            type="text"
+                            value={userName}
+                        />
+                        {isSuggestionVisible && suggestions?.items?.length > 0 && (
+                            <SuggestionsDropdown 
+                                onSelect={(selected) => {
+                                    setUserName(selected);
+                                    setIsSuggestionVisible(false);
+
+                                    if(submittedUserName !== selected) {
+                                        setSubmittedUserName(selected)
+                                    } else {
+                                        refetch();
+                                    }
+
+                                    setRecentUsers((prev) => {
+                                        const updated = [selected, ...prev.filter((user) => user !== selected)];
+                                        return updated.slice(0,5);
+                                    });
+                                }}
+                                suggestions={suggestions.items}
+                            />
+                        )}
+                    </div>
                     <button 
                         className="user-search__button"
                         type="submit"
@@ -56,15 +106,17 @@ const UserSearch = () => {
                         Search
                     </button>
                 </form>
-                {isLoading && <p className="loading-message">Loading...</p>}
-                {error && <p className="error-message">Error: {error.message}</p>}  
             </div>
             <div className="user-search__content">
-                {data?.items.length > 0 && (
+                {data?.items.length > 0 ? (
                     <div className="user-search__results-container">
                         {data.items.map((user: any) => (
                             <UserCard {...user} />
                         ))}
+                    </div>
+                ) : (
+                    <div className="user-search__message-container">
+                        {messageDisplay()}
                     </div>
                 )}
                 {recentUsers.length > 0 && (
