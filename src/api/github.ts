@@ -11,3 +11,21 @@ export const searchGitHubUsers = async (username: string) => {
     const data = await response.json();
     return data;
 }
+
+export const checkIfFollowingUser = async (username: string) => {
+    const response = await fetch(`${import.meta.env.VITE_GITHUB_API_URL}/user/following/${username}`, {
+        headers: {
+            'Authorization': `Bearer ${import.meta.env.VITE_GITHUB_API_TOKEN}`,
+            Accept: 'application/vnd.github+json',
+        }
+    });
+
+    if(response.status === 204) {
+        return true;
+    } else if (response.status === 404) {
+        return false;
+    } else {
+       const errorData = await response.json().catch(() => null);
+       throw new Error(errorData?.message || 'Failed to check follow status');
+    }
+};
