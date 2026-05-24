@@ -12,7 +12,7 @@
     &__bio {
         font-size: 12px;
         line-height: 16px;
-        font-weight: 500;
+        font-weight: variables.$font-weight-mid;
     }
 
     &__button {
@@ -78,20 +78,33 @@
         text-align: left;
     }
 
+    &__profile-follow {
+        &.following {
+            background-color: red;
+        }
+    }
+
     &__profile-link {
-        @include elementMixins.flexLayout(row, center, center);
-        gap: 5px;
         background-color: variables.$basic-black;
-        padding: 5px 10px;
-        color: variables.$basic-white;
-        text-decoration: none;
-        width: 100px;
-        font-size: 14px;
-        transition: all ease-in-out 0.2s;
+
 
         &:hover {
             background-color: #1e1e1e;
         }
+    }
+
+    &__profile-follow,
+    &__profile-link {
+        @include elementMixins.flexLayout(row, center, center);
+        gap: 5px;
+        padding: 5px 10px;
+        font-weight: variables.$font-weight-heavy;
+        color: variables.$basic-white;
+        text-decoration: none;
+        width: 100%;
+        font-size: 14px;
+        transition: all ease-in-out 0.2s;
+        cursor: pointer;
     }
 
     &__result  {
@@ -104,6 +117,11 @@
         color: variables.$basic-black;
         border-radius: 5px;
         box-shadow: variables.$box-shadow-standard;
+
+        &--btns {
+            @include elementMixins.flexLayout(column, null, center);
+            gap: 2px;
+        }
 
         &__info {
             @include elementMixins.flexLayout(column, null, null);
@@ -168,6 +186,6 @@
         padding: 0;
         background-color: variables.$basic-white;
         color: variables.$basic-black;
-        font-weight: 700;
+        font-weight: variables.$font-weight-heavy;
     }
 }

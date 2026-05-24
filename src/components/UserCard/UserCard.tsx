@@ -54,30 +54,28 @@ const UserCard = (user: GitHubUserProps) => {
             <div className="users-search__result--info">
                 <h2 className="user-search__name">{user.name || user.login}</h2>
                 <p className="user-search__bio">{user.bio}</p>
-                <div className="users-search__result--btns">
+                <div className="user-search__result--btns">
                     <button
-                        className={`follow-btn ${isFollowing ? 'following' : ''}`}
+                        className={`user-search__profile-follow ${isFollowing ? 'following' : ''}`}
                         disabled={followMutation.isPending || unfollowMutation.isPending}
                         onClick={() => handleFollow()}
                     >
                         {isFollowing ? (
                             <React.Fragment>
-                                <FaUserMinus className="follow-icon" /> Followin
+                                <FaUserMinus /> Following
                             </React.Fragment>
                         ) : (
                             <React.Fragment>
-                                <FaUserPlus className="follow-icon" /> Follow User
+                                <FaUserPlus /> Follow User
                             </React.Fragment>
                         )}
                     </button>
-                    <a 
+                    <button
                         className="user-search__profile-link"
-                        href={user.html_url} 
-                        rel="noopener noreferrer"
-                        target="_blank"
+                        onClick={() => window.open(user.html_url)}
                     >
                         <FaGithubAlt /> View Profile
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
