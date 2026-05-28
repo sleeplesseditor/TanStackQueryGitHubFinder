@@ -5,4 +5,5 @@ export interface GitHubUserProps {
     id: number
     login: string
     name?: string
+    setSelectedUser?: () => void;
 }

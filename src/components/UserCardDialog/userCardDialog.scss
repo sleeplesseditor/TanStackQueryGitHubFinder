@@ -1,0 +1,16 @@
+@use '@styles/elementMixins.scss';
+@use '@styles/variables.scss';
+
+.user-card-dialog {
+    max-width: 20rem;
+  padding: 2rem;
+  border-radius: 1rem;
+  position: fixed;
+  box-shadow: hsl(0 0% 0% / 10%) 0 0 0.5rem 0.25rem;
+  border: 1px solid #ccc;
+//   all:revert;
+
+    &::backdrop {
+        background: hsl(0 0% 0% / 50%);
+    }
+}

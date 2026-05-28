@@ -24,6 +24,7 @@
         width: 100px;
         font-weight: variables.$font-weight-heavy;
         transition: all ease-in-out 0.2s;
+        border: 0px;
 
         &:hover {
             background-color: #3988ff;
@@ -74,13 +75,32 @@
     &__name {
         font-weight: variables.$font-weight-heavy;
         color: variables.$basic-black;
-        font-size: 18px;
+        font-size: 14px;
         text-align: left;
+
+        &-container {
+            @include elementMixins.flexLayout(row, space-between, null);
+            gap: 10px;
+        }
     }
 
     &__profile-follow {
         &.following {
             background-color: red;
+            transition: all ease-in-out 0.2s;
+
+            &:hover {
+                background-color: #ff4d4d;
+            }
+        }
+
+        &.not-followed {
+            background-color: #1671fa;
+            transition: all ease-in-out 0.2s;
+
+            &:hover {
+                background-color: #3988ff;
+            }
         }
     }
 
@@ -113,10 +133,10 @@
         width: 225px;
         padding: 10px;
         border: 1px solid variables.$basic-black;
-        background-color: variables.$basic-white;
         color: variables.$basic-black;
         border-radius: 5px;
         box-shadow: variables.$box-shadow-standard;
+        background: linear-gradient(0deg,rgba(201, 201, 201, 1) 0%, rgba(255, 255, 255, 1) 100%);
 
         &--btns {
             @include elementMixins.flexLayout(column, null, center);

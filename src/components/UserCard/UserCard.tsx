@@ -1,12 +1,17 @@
 import * as React from 'react';
 import { checkIfFollowingUser, followGithubUser, unfollowGithubUser } from '@api/github';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { FaGithubAlt, FaUserMinus, FaUserPlus } from 'react-icons/fa';
+import { FaExpand, FaGithubAlt, FaUserMinus, FaUserPlus } from 'react-icons/fa';
 import { toast } from 'sonner';
 import '@components/UserSearch/userSearch.scss';
 import type { GitHubUserProps } from '@components/types/componentTypes';
 
-const UserCard = (user: GitHubUserProps) => {
+interface IProps {
+    user: GitHubUserProps;
+    setSelectedUser: (user: GitHubUserProps) => void;
+}
+
+const UserCard = ({ user, setSelectedUser }: IProps) => {
     const { data: isFollowing, refetch } = useQuery({
         queryKey: ['follow-status', user.login],
         queryFn: () => checkIfFollowingUser(user.login),
@@ -43,6 +48,10 @@ const UserCard = (user: GitHubUserProps) => {
         }
     };
 
+    const handleDialogOpen = () => {
+        setSelectedUser(user);
+    };
+
     return (
         <div className="user-search__result" key={user.id}>
             <img 
@@ -52,11 +61,14 @@ const UserCard = (user: GitHubUserProps) => {
                 width={100} 
             />
             <div className="users-search__result--info">
-                <h2 className="user-search__name">{user.name || user.login}</h2>
+                <span className="user-search__name-container">
+                    <h2 className="user-search__name">{user.name || user.login}</h2>
+                    <FaExpand onClick={() => handleDialogOpen()} />
+                </span>
                 <p className="user-search__bio">{user.bio}</p>
                 <div className="user-search__result--btns">
                     <button
-                        className={`user-search__profile-follow ${isFollowing ? 'following' : ''}`}
+                        className={`user-search__profile-follow ${isFollowing ? 'following' : 'not-followed'}`}
                         disabled={followMutation.isPending || unfollowMutation.isPending}
                         onClick={() => handleFollow()}
                     >

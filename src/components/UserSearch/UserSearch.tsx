@@ -4,6 +4,7 @@ import { searchGitHubUsers } from '@api/github';
 import UserCard from '@components/UserCard/UserCard';
 import RecentSearches from '@components/RecentSearches/RecentSearches';
 import SuggestionsDropdown from '@components/SuggestionsDropdown/SuggestionsDropdown';
+import UserCardDialog from '@components/UserCardDialog/UserCardDialog';
 import { useDebounce } from 'use-debounce';
 import './userSearch.scss';
 
@@ -14,6 +15,7 @@ const UserSearch = () => {
         const storedItems = localStorage.getItem('recentUsers');
         return storedItems ? JSON.parse(storedItems) : [];
     });
+    const [selectedUser, setSelectedUser] = React.useState<any>(null);
 
     const [debouncedUserName] = useDebounce(userName, 300);
     const [isSuggestionVisible, setIsSuggestionVisible] = React.useState<boolean>(false);
@@ -57,7 +59,31 @@ const UserSearch = () => {
         }
     }
 
-    console.log('IS', isSuggestionVisible, suggestions)
+    // const modal = document.querySelector("#userCardDialog");
+    // const closeModal = document.querySelector("#closeModal");
+
+    // React.useEffect(() => {
+    //     if (modal) {
+    //         closeModal && closeModal.addEventListener("click", () => setSelectedUser(null));
+    //     }
+
+    //     return () => {
+    //         closeModal && closeModal.removeEventListener("click", () => setSelectedUser(null));
+    //     }
+    // }, []);
+
+    const modalRef = React.useRef<HTMLDialogElement | null>(null);
+
+    function toggleModal(user: any){
+        if (selectedUser){
+            setSelectedUser(null);
+                        modalRef.current?.close();
+        }
+        else {
+            setSelectedUser(user);
+            modalRef.current?.showModal();
+        }
+    }
 
     return (
         <React.Fragment>
@@ -99,10 +125,7 @@ const UserSearch = () => {
                             />
                         )}
                     </div>
-                    <button 
-                        className="user-search__button"
-                        type="submit"
-                    >
+                    <button className="user-search__button">
                         Search
                     </button>
                 </form>
@@ -111,7 +134,7 @@ const UserSearch = () => {
                 {data?.items.length > 0 ? (
                     <div className="user-search__results-container">
                         {data.items.map((user: any) => (
-                            <UserCard {...user} />
+                            <UserCard user={user} setSelectedUser={toggleModal} />
                         ))}
                     </div>
                 ) : (
@@ -129,6 +152,13 @@ const UserSearch = () => {
                     />
                 )}
             </div>
+            {selectedUser && (
+                <UserCardDialog 
+                    dialogId={modalRef}
+                    onClose={toggleModal} 
+                    user={selectedUser} 
+                />
+            )}
         </React.Fragment>
     )
 };
