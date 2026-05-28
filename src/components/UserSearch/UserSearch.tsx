@@ -59,25 +59,12 @@ const UserSearch = () => {
         }
     }
 
-    // const modal = document.querySelector("#userCardDialog");
-    // const closeModal = document.querySelector("#closeModal");
-
-    // React.useEffect(() => {
-    //     if (modal) {
-    //         closeModal && closeModal.addEventListener("click", () => setSelectedUser(null));
-    //     }
-
-    //     return () => {
-    //         closeModal && closeModal.removeEventListener("click", () => setSelectedUser(null));
-    //     }
-    // }, []);
-
     const modalRef = React.useRef<HTMLDialogElement | null>(null);
 
     function toggleModal(user: any){
         if (selectedUser){
             setSelectedUser(null);
-                        modalRef.current?.close();
+            modalRef.current?.close();
         }
         else {
             setSelectedUser(user);

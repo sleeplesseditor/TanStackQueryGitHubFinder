@@ -12,6 +12,20 @@ export const searchGitHubUsers = async (username: string) => {
     return data;
 }
 
+export const getGitHubUserDetails = async (username: string) => {
+    const response = await fetch(`${import.meta.env.VITE_GITHUB_API_URL}/users/${username}`, {
+        headers: {
+            'X-GitHub-Api-Version': '2026-03-10'
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    return data;
+}
+
 export const checkIfFollowingUser = async (username: string) => {
     const response = await fetch(`${import.meta.env.VITE_GITHUB_API_URL}/user/following/${username}`, {
         headers: {
