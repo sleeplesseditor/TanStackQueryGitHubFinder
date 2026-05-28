@@ -2,15 +2,49 @@
 @use '@styles/variables.scss';
 
 .user-card-dialog {
+    min-width: 400px;
     max-width: 20rem;
-  padding: 2rem;
-  border-radius: 1rem;
-  position: fixed;
-  box-shadow: hsl(0 0% 0% / 10%) 0 0 0.5rem 0.25rem;
-  border: 1px solid #ccc;
-//   all:revert;
+    padding: 2rem;
+    border-radius: 1rem;
+    position: fixed;
+    box-shadow: hsl(0 0% 0% / 10%) 0 0 0.5rem 0.25rem;
+    border: 1px solid #ccc;
 
     &::backdrop {
         background: hsl(0 0% 0% / 50%);
+    }
+
+    &__avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 1px solid #ffffff;
+    }
+
+    &__bio {
+        text-align: left;
+        font-size: 16px;
+    }
+
+    &__head {
+        @include elementMixins.flexLayout(row, flex-end, center);
+    }
+
+    &__header {
+        @include elementMixins.flexLayout(row, space-between, center);
+        margin: 10px 0px;
+    }
+
+    &__name {
+        font-size: 40px;
+    }
+
+    &__stats {
+        @include elementMixins.flexLayout(column, flex-start, flex-start);
+        gap: 5px;
+        width: 100%;
+        margin: 5px 0px;
+
+        font-size: 14px;
     }
 }
