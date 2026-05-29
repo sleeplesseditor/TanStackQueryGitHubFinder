@@ -74,7 +74,7 @@ const UserSearch = () => {
 
     return (
         <React.Fragment>
-            <div className="user-search__container">
+            <div className="user-search__container" data-testid="user-search-container">
                 <form
                     className="user-search__form"
                     onSubmit={handleSubmit}
@@ -82,6 +82,7 @@ const UserSearch = () => {
                     <div className="dropdown-wrapper">
                         <input 
                             className="user-search__input"
+                            data-testid="user-search__input"
                             onChange={(e) => {
                                 const val = e.target.value;
                                 setUserName(val);
@@ -113,20 +114,24 @@ const UserSearch = () => {
                             />
                         )}
                     </div>
-                    <button className="user-search__button">
+                    <button 
+                        className="user-search__button" 
+                        data-testid="user-search__button" 
+                        type="submit"
+                    >
                         Search
                     </button>
                 </form>
             </div>
             <div className="user-search__content">
                 {data?.items.length > 0 ? (
-                    <div className="user-search__results-container">
+                    <div className="user-search__results-container" data-testid="user-search__results-container">
                         {data.items.map((user: any) => (
                             <UserCard user={user} setSelectedUser={toggleModal} />
                         ))}
                     </div>
                 ) : (
-                    <div className="user-search__message-container">
+                    <div className="user-search__message-container" data-testid="user-search__message-container">
                         {messageDisplay()}
                     </div>
                 )}
