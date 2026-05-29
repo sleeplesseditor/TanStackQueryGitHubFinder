@@ -4,7 +4,7 @@
 .user-card-dialog {
     min-width: 400px;
     max-width: 20rem;
-    padding: 2rem;
+    padding: 20px 30px;
     border-radius: 1rem;
     position: fixed;
     box-shadow: hsl(0 0% 0% / 10%) 0 0 0.5rem 0.25rem;
@@ -24,6 +24,7 @@
     &__bio {
         text-align: left;
         font-size: 16px;
+        line-height: 20px;
     }
 
     &__head {
@@ -37,14 +38,41 @@
 
     &__name {
         font-size: 40px;
+        margin: 0px;
+
+        &-container {
+            @include elementMixins.flexLayout(column, null, flex-start);
+            gap: 10px;
+        }
+    }
+
+    &__profile-link {
+        @include elementMixins.flexLayout(row, center, center);
+        background-color: variables.$basic-black;
+        cursor: pointer;
+        padding: 5px 10px;
+        font-weight: variables.$font-weight-heavy;
+        color: variables.$basic-white;
+        text-decoration: none;
+        transition: all ease-in-out 0.2s;
+        border: 0px;
+        font-size: 14px;
+        gap: 5px;
+
+        &:hover {
+            background-color: #1e1e1e;
+        }
     }
 
     &__stats {
         @include elementMixins.flexLayout(column, flex-start, flex-start);
         gap: 5px;
         width: 100%;
-        margin: 5px 0px;
-
+        margin: 10px 0px;
         font-size: 14px;
+    }
+
+    #closeModal {
+        cursor: pointer;
     }
 }

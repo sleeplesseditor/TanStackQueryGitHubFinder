@@ -63,7 +63,11 @@ const UserCard = ({ user, setSelectedUser }: IProps) => {
             <div className="users-search__result--info">
                 <span className="user-search__name-container">
                     <h2 className="user-search__name">{user.name || user.login}</h2>
-                    <FaExpandArrowsAlt onClick={() => handleDialogOpen()} />
+                    <FaExpandArrowsAlt 
+                        className="user-search__dialog-open" 
+                        onClick={() => handleDialogOpen()} 
+                        title="View Profile Details"
+                    />
                 </span>
                 <p className="user-search__bio">{user.bio}</p>
                 <div className="user-search__result--btns">

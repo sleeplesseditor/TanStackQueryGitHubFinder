@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { FaCode, FaCodeBranch, FaRegUserCircle, FaWindowClose } from 'react-icons/fa';
+import { 
+    FaCode, FaCodeBranch, FaGithubAlt, FaMapMarkerAlt, FaRegUserCircle, FaWindowClose 
+} from 'react-icons/fa';
 import { useQuery } from '@tanstack/react-query';
 import { getGitHubUserDetails } from '@api/github';
 import './userCardDialog.scss';
@@ -12,7 +14,7 @@ interface UserCardDialogProps {
 
 const UserCardDialog: React.FC<UserCardDialogProps> = ({ dialogId, user, onClose }) => {
 
-    const { data, isLoading, error, refetch } = useQuery({
+    const { data, isLoading, error } = useQuery({
         queryKey: ['user-details', user.login],
         queryFn: () => getGitHubUserDetails(user.login),
         enabled: !!user.login
@@ -47,18 +49,23 @@ const UserCardDialog: React.FC<UserCardDialogProps> = ({ dialogId, user, onClose
                 <div className="user-card-dialog__content">
                     <span className="user-card-dialog__header">
                         <img className="user-card-dialog__avatar" src={data.avatar_url} alt={`${data.login}'s avatar`} />
-                        <h1 className="user-card-dialog__name">{data.name || data.login}</h1>
+                        <span className="user-card-dialog__name-container">
+                            <h1 className="user-card-dialog__name">{data.name || data.login}</h1>
+                            {data.location && <p className="user-card-dialog__location"><FaMapMarkerAlt /> {data.location}</p>}
+                        </span>
                     </span>
                     <p className="user-card-dialog__bio">{data.bio}</p>
                     <div className="user-card-dialog__stats">
-                        <span><FaCode /> {data.public_repos} Repositories</span>
-                        <span><FaRegUserCircle /> {data.followers} Followers</span>
-                        <span><FaCodeBranch /> {data.public_gists} Gists</span>
+                        <span><FaCode /> {data.public_repos} {data.public_repos === 1 ? 'Repository' : 'Repositories'}</span>
+                        <span><FaRegUserCircle /> {data.followers} {data.followers === 1 ? 'Follower' : 'Followers'}</span>
+                        <span><FaCodeBranch /> {data.public_gists} {data.public_gists === 1 ? 'Gist' : 'Gists'}</span>
                     </div>
-                    
-                    <a href={data.html_url} target="_blank" rel="noopener noreferrer" className="user-card-dialog__link">
-                        View on GitHub
-                    </a>
+                    <button 
+                        className="user-card-dialog__profile-link"
+                        onClick={() => window.open(data.html_url, '_blank')}
+                    >
+                        <FaGithubAlt /> View Profile
+                    </button>
                 </div>
             )}  
         </dialog>    
