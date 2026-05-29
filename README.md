@@ -12,11 +12,13 @@
 A refresher app, as part of some coursework for the course [created by Brad Traversy](https://www.udemy.com/course/modern-react-from-the-beginning). The app focuses on the use of TanStack Query with the GitHub API.
 
 ## Example Screenshots
-<img width="1090" height="669" alt="Screenshot 2026-05-29 at 17 36 30" src="https://github.com/user-attachments/assets/a08bc3d2-c206-4173-88fd-0b43c7c854e1" />
+<img width="1082" height="670" alt="Screenshot 2026-05-29 at 18 10 21" src="https://github.com/user-attachments/assets/1dbd7b58-de2a-4825-ab15-0a0dbc403124" />
 Example of search results displayed
 
+<img width="1083" height="672" alt="Screenshot 2026-05-29 at 18 10 31" src="https://github.com/user-attachments/assets/0e85ce8e-208d-47b9-b789-ffa0b857ada3" />
+Example of suggested user list from search input field
 
-<img width="1090" height="671" alt="Screenshot 2026-05-29 at 17 37 06" src="https://github.com/user-attachments/assets/837ac663-7af2-4724-bd2d-4950e956d281" />
+<img width="1087" height="671" alt="Screenshot 2026-05-29 at 18 10 14" src="https://github.com/user-attachments/assets/2f6e404b-37aa-4942-a96b-8024a872459c" />
 Example of failed search
 
 ## Running the App Locally
