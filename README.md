@@ -2,6 +2,7 @@
 
 #### Table of Contents
 - [Description](#description)
+- [Example Screenshots](#example-screenshots)
 - [Running the App Locally](#running-the-app-locally)
 - [Changes from Original Project](#changes-from-original-project)
 - [Potential Areas for Expansion/Improvement](#potential-areas-for-expansionimprovement)
@@ -9,6 +10,9 @@
 
 ## Description
 A refresher app, as part of some coursework for the course [created by Brad Traversy](https://www.udemy.com/course/modern-react-from-the-beginning). The app focuses on the use of TanStack Query with the GitHub API.
+
+## Example Screenshots
+
 
 ## Running the App Locally
 To use this app, you will need to create a local .env file with the GitHub API_URL value, and a GitHub API_TOKEN value (created using Personal Access Tokens from your Github profile). Once that has been established, follow these steps:
