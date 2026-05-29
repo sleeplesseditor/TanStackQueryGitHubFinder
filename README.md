@@ -21,6 +21,9 @@ Example of suggested user list from search input field
 <img width="1087" height="671" alt="Screenshot 2026-05-29 at 18 10 14" src="https://github.com/user-attachments/assets/2f6e404b-37aa-4942-a96b-8024a872459c" />
 Example of failed search
 
+<img width="1069" height="645" alt="Screenshot 2026-05-29 at 18 14 02" src="https://github.com/user-attachments/assets/465cb082-b700-474d-bd57-e9f189c61a27" />
+Example of expanded user info in custom dialog component
+
 ## Running the App Locally
 To use this app, you will need to create a local .env file with the GitHub API_URL value, and a GitHub API_TOKEN value (created using Personal Access Tokens from your Github profile). Once that has been established, follow these steps:
 1. CD into the project folder
