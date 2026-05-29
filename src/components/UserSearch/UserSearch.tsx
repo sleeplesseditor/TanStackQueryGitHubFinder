@@ -93,6 +93,7 @@ const UserSearch = () => {
                         />
                         {isSuggestionVisible && suggestions?.items?.length > 0 && (
                             <SuggestionsDropdown 
+                                onClose={() => setIsSuggestionVisible(false)}
                                 onSelect={(selected) => {
                                     setUserName(selected);
                                     setIsSuggestionVisible(false);

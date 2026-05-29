@@ -29,11 +29,13 @@ To use this app, you will need to create a local .env file with the GitHub API_U
 - Search provides a list of users matching search term, with results displayed in card format
     - Additional info can be displayed for each user by opening a dialog, by clicking the icon in the upper-right corner of each card
     - User information uses the same TanStack Query pattern to pull individual user info from the API
+- Added 'click away to close' functionality to suggestions list in search input field
 - Unit tests created for components, using Vitetest and React Testing Library
 
 ## Potential Areas for Expansion/Improvement
 - Implementation of backend API to contain API credentials
     - Additional opportunity to setup authentication and allow individual users to log in and manage subscriptions
+- Revision of results display to use pagination
 
 ## Additional Notes
 This app uses version 5.100.6 of @tanstack/react-query, which has been [confirmed to be safe](https://tanstack.com/blog/incident-followup) in the wake of the 11 May 2026 supply chain attack.
