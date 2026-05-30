@@ -24,10 +24,11 @@ const SuggestionsDropdown = ({ onSelect, suggestions, onClose }: SuggestionsProp
     }, []);
 
     return (
-        <ul className="suggested-user__list" ref={dropdownRef}>
+        <ul className="suggested-user__list" data-testid="suggestions-dropdown-container" ref={dropdownRef}>
             {suggestions?.slice(0,5).map((suggestedUser: GitHubUserProps) => (
                 <li 
                     className="suggested-user__item" 
+                    data-testid={`suggested-user-${suggestedUser.login}`}
                     key={suggestedUser.login}
                     onClick={() => onSelect(suggestedUser.login)}
                 >
