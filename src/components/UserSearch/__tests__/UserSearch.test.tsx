@@ -41,7 +41,15 @@ describe('UserSearch', () => {
     });
 
     describe('initial rendering activity', () => {
+        let getItemSpy: any;
+        let setItemSpy: any;
+
         beforeEach(() => {
+            localStorage.setItem('recentUsers', JSON.stringify(['user1', 'user2']));
+
+            getItemSpy = vi.spyOn(localStorage, 'getItem');
+            setItemSpy = vi.spyOn(localStorage, 'setItem');
+
             render(
                 <QueryClientProvider client={queryClient}>
                     <UserSearch />
@@ -49,17 +57,21 @@ describe('UserSearch', () => {
             );
         });
 
-        const getItemSpy = vi.spyOn(Storage.prototype, 'getItem');
-        const setItemSpy = vi.spyOn(Storage.prototype, 'setItem');
-
         afterEach(() => {
             getItemSpy.mockClear();
             setItemSpy.mockClear();
+            localStorage.clear();
         });
         
         it('should check the localStorage for any recent searches and render them if they exist', async () => {
             await waitFor(() => {
                 expect(getItemSpy).toHaveBeenCalledWith('recentUsers');
+            });
+        });
+
+        it('should call localStorage setItem if localStorage contains recent users', async () => {
+            await waitFor(() => {
+                expect(setItemSpy).toHaveBeenCalledWith('recentUsers', JSON.stringify(['user1', 'user2']));
             });
         });
     });
