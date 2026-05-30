@@ -7,12 +7,12 @@ import { getGitHubUserDetails } from '@api/github';
 import './userCardDialog.scss';
 
 interface UserCardDialogProps {
-    dialogId: any;
+    dialogRef: any;
     onClose: (user: any) => void;
     user: any;
 }
 
-const UserCardDialog: React.FC<UserCardDialogProps> = ({ dialogId, user, onClose }) => {
+const UserCardDialog: React.FC<UserCardDialogProps> = ({ dialogRef, user, onClose }) => {
 
     const { data, isLoading, error } = useQuery({
         queryKey: ['user-details', user.login],
@@ -20,24 +20,21 @@ const UserCardDialog: React.FC<UserCardDialogProps> = ({ dialogId, user, onClose
         enabled: !!user.login
     });
 
-    console.log('DATA', data)
-
     React.useEffect(() => {        
-        const dialog = dialogId.current;
+        const dialog = dialogRef.current;
         if (dialog) {
-            console.log('Dialog element found, attempting showModal...');
             try {
                 dialog.showModal();
             } catch (e) {
                 console.error('✗ showModal() failed:', e);
             }
         } else {
-            console.warn('✗ dialogId.current is null/undefined');
+            console.warn('✗ dialogRef.current is null/undefined');
         }
     }, []);
 
     return (
-        <dialog className="user-card-dialog" ref={dialogId}>
+        <dialog className="user-card-dialog" data-testid="user-card-dialog" ref={dialogRef}>
             <div className="user-card-dialog__head">
                 <FaWindowClose id="closeModal" onClick={() => onClose(user)} />
             </div>
@@ -48,7 +45,11 @@ const UserCardDialog: React.FC<UserCardDialogProps> = ({ dialogId, user, onClose
             ) : (
                 <div className="user-card-dialog__content">
                     <span className="user-card-dialog__header">
-                        <img className="user-card-dialog__avatar" src={data.avatar_url} alt={`${data.login}'s avatar`} />
+                        <img 
+                            alt={`${data.login}'s avatar`}
+                            className="user-card-dialog__avatar" 
+                            src={data.avatar_url} 
+                        />
                         <span className="user-card-dialog__name-container">
                             <h1 className="user-card-dialog__name">{data.name || data.login}</h1>
                             {data.location && <p className="user-card-dialog__location"><FaMapMarkerAlt /> {data.location}</p>}

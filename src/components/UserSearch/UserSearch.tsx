@@ -147,7 +147,7 @@ const UserSearch = () => {
             </div>
             {selectedUser && (
                 <UserCardDialog 
-                    dialogId={modalRef}
+                    dialogRef={modalRef}
                     onClose={toggleModal} 
                     user={selectedUser} 
                 />
