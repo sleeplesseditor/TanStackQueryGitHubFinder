@@ -1,6 +1,6 @@
 import React from 'react';
 import { cleanup, render, screen, waitFor } from '@testing-library/react';
-import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { vi } from 'vitest';
 import UserCardDialog from '../UserCardDialog';
 import * as GitHubAPI from '@api/github';

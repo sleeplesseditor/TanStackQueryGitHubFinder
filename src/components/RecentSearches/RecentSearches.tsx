@@ -12,7 +12,7 @@ const RecentSearches = ({ onSelect, recentUsers }: RecentSearchProps) => {
     const queryClient = useQueryClient(); 
 
     return (
-        <div className="recent-search__container">
+        <div className="recent-search__container" data-testid="recent-searches-container">
             <div className="recent-search__header">
                 <FaClock />
                 <h3>Recent Searches</h3>
