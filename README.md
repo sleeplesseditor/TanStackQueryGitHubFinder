@@ -41,6 +41,7 @@ To use this app, you will need to create a local .env file with the GitHub API_U
 - Implementation of backend API to contain API credentials
     - Additional opportunity to setup authentication and allow individual users to log in and manage subscriptions
 - Revision of results display to use pagination
+- Expand unit test coverage and implement Playwright tests for E2E testing
 
 ## Additional Notes
 This app uses version 5.100.6 of @tanstack/react-query, which has been [confirmed to be safe](https://tanstack.com/blog/incident-followup) in the wake of the 11 May 2026 supply chain attack.
