@@ -1,6 +1,7 @@
-import { cleanup, render, screen, waitFor } from '@testing-library/react';
+import { cleanup, render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { vi } from 'vitest';
+import * as GitHubAPI from '@api/github';
 import UserSearch from '../UserSearch';
 
 const queryClient = new QueryClient();
@@ -73,6 +74,40 @@ describe('UserSearch', () => {
             await waitFor(() => {
                 expect(setItemSpy).toHaveBeenCalledWith('recentUsers', JSON.stringify(['user1', 'user2']));
             });
+        });
+    });
+
+    describe('user search activity', () => {
+        beforeEach(() => {
+            vi.spyOn(GitHubAPI, 'searchGitHubUsers').mockResolvedValue({ items: [] });
+
+            render(
+                <QueryClientProvider client={queryClient}>
+                    <UserSearch />
+                </QueryClientProvider>
+            );
+        });
+
+        afterEach(cleanup);
+
+        it('should display a loading message while fetching search results', async () => {
+            const inputElement = screen.getByTestId('user-search__input');
+            fireEvent.change(inputElement, { target: { value: 'testuser' } });
+            fireEvent.submit(inputElement);
+
+            const loadingMessage = await screen.findByText(/loading/i);
+            expect(loadingMessage).toBeInTheDocument();
+        });
+
+        it('should display a "no users found" message if the search query returns no results', async () => {
+            vi.spyOn(GitHubAPI, 'searchGitHubUsers').mockResolvedValue({ items: [] });
+
+            const inputElement = screen.getByTestId('user-search__input');
+            fireEvent.change(inputElement, { target: { value: 'nonexistentuser' } });
+            fireEvent.submit(inputElement);
+
+            const noResultsMessage = await screen.findByText(/no users found/i);
+            expect(noResultsMessage).toBeInTheDocument();
         });
     });
 });
